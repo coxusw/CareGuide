@@ -1,5 +1,5 @@
 // Crested Critters • Care Guide
-// Features: taxonomy-only tags + grouped tag filters + search + quick stats + do/don't + multi-photos
+// Features: taxonomy-only tags + grouped tag filters + search + card grid + quick stats + do/don't + multi-photos
 // URL deep-links: .../#species-id
 // Images live in: assets/images/<filename>
 
@@ -21,7 +21,6 @@ const SPECIES = [
     photos: [{ src: "assets/images/Rubber Ducky.jpeg", caption: "Rubber Ducky." }],
     updated: "2026-02-22",
   },
-
   {
     id: "pineapple-spikey",
     name: "Pineapple Spikey",
@@ -42,7 +41,6 @@ const SPECIES = [
     ],
     updated: "2026-02-22",
   },
-
   {
     id: "powder-orange",
     name: "Powder Orange",
@@ -60,7 +58,6 @@ const SPECIES = [
     photos: [{ src: "assets/images/Powder Orange.jpeg", caption: "Powder Orange." }],
     updated: "2026-02-22",
   },
-
   {
     id: "orange-cream",
     name: "Orange Cream",
@@ -78,7 +75,6 @@ const SPECIES = [
     photos: [{ src: "assets/images/Orange Cream isopod.png", caption: "Orange Cream morph." }],
     updated: "2026-02-22",
   },
-
   {
     id: "oreo-crumble",
     name: "Oreo Crumble",
@@ -96,7 +92,6 @@ const SPECIES = [
     photos: [{ src: "assets/images/Oreo Crumble 2.jpeg", caption: "Oreo Crumble." }],
     updated: "2026-02-22",
   },
-
   {
     id: "red-panda",
     name: "Red Panda",
@@ -114,7 +109,6 @@ const SPECIES = [
     photos: [{ src: "assets/images/Red Panda 2.jpeg", caption: "Red Panda." }],
     updated: "2026-02-22",
   },
-
   {
     id: "white-zebra",
     name: "White Zebra",
@@ -132,7 +126,6 @@ const SPECIES = [
     photos: [{ src: "assets/images/High White Zebra isopod.png", caption: "High White Zebra." }],
     updated: "2026-02-22",
   },
-
   {
     id: "yellow-zebra",
     name: "Yellow Zebra",
@@ -150,7 +143,6 @@ const SPECIES = [
     photos: [{ src: "assets/images/Yellow Zebra isopod.png", caption: "Yellow Zebra." }],
     updated: "2026-02-22",
   },
-
   {
     id: "gestroi-gold-spot",
     name: "Gestroi Gold Spot",
@@ -171,7 +163,6 @@ const SPECIES = [
     ],
     updated: "2026-02-22",
   },
-
   {
     id: "dairy-cow",
     name: "Dairy Cow",
@@ -189,7 +180,6 @@ const SPECIES = [
     photos: [{ src: "assets/images/Dairy Cow.png", caption: "Dairy Cow morph." }],
     updated: "2026-02-22",
   },
-
   {
     id: "temperate-springtails",
     name: "Temperate Springtails",
@@ -211,16 +201,21 @@ const SPECIES = [
 
 // ---------- UI ----------
 const els = {
-  buttonContainer: document.getElementById("buttonContainer"),
+  cardGrid: document.getElementById("cardGrid"),
+  noResults: document.getElementById("noResults"),
+
   speciesName: document.getElementById("speciesName"),
   speciesImage: document.getElementById("speciesImage"),
   photoCaption: document.getElementById("photoCaption"),
   thumbBar: document.getElementById("thumbBar"),
+
   quickStats: document.getElementById("quickStats"),
   careInfo: document.getElementById("careInfo"),
+
   doDont: document.getElementById("doDont"),
   doList: document.getElementById("doList"),
   dontList: document.getElementById("dontList"),
+
   tagBar: document.getElementById("tagBar"),
   searchInput: document.getElementById("searchInput"),
   year: document.getElementById("year"),
@@ -230,6 +225,10 @@ if (els.year) els.year.textContent = new Date().getFullYear();
 
 let activeSpeciesId = null;
 let activeTags = new Set();
+
+function firstPhoto(sp) {
+  return sp.photos?.[0]?.src || "";
+}
 
 function allTags() {
   const set = new Set();
@@ -261,7 +260,7 @@ function renderTagBar() {
         if (activeTags.has(tag)) activeTags.delete(tag);
         else activeTags.add(tag);
         renderTagBar();
-        renderButtons();
+        renderCards();
       };
       row.appendChild(b);
     });
@@ -285,12 +284,11 @@ function renderTagBar() {
   allBtn.onclick = () => {
     activeTags.clear();
     renderTagBar();
-    renderButtons();
+    renderCards();
   };
   allRow.appendChild(allBtn);
   els.tagBar.appendChild(allRow);
 
-  // Divider
   const div1 = document.createElement("div");
   div1.className = "tagDivider";
   els.tagBar.appendChild(div1);
@@ -316,11 +314,12 @@ function renderTagBar() {
     els.tagBar.appendChild(d);
   }
 
-  makeGroup("Other", otherTags); // Springtails lives here
+  makeGroup("Other", otherTags);
 }
 
 function matchesFilters(sp) {
   const q = (els.searchInput?.value || "").trim().toLowerCase();
+
   const hay = [
     sp.name,
     sp.scientific,
@@ -384,16 +383,12 @@ function renderQuickStats(sp) {
     ["Origin", sp.origin || "—"],
   ];
 
-  els.quickStats.innerHTML = items
-    .map(
-      ([k, v]) => `
+  els.quickStats.innerHTML = items.map(([k, v]) => `
     <div class="stat">
       <div class="k">${k}</div>
       <div class="v">${v}</div>
     </div>
-  `
-    )
-    .join("");
+  `).join("");
 }
 
 function renderDoDont(sp) {
@@ -430,16 +425,19 @@ ${sp.notes || "—"}
 `;
 }
 
+function highlightActiveCard() {
+  document.querySelectorAll(".specCard").forEach(card => {
+    card.classList.toggle("active", card.dataset.id === activeSpeciesId);
+  });
+}
+
 function selectSpecies(id, updateHash = true) {
   const sp = SPECIES.find(x => x.id === id);
   if (!sp) return;
 
   activeSpeciesId = id;
 
-  if (updateHash) {
-    // Enables links like .../#rubber-ducky
-    location.hash = id;
-  }
+  if (updateHash) location.hash = id;
 
   els.speciesName.textContent = sp.name;
 
@@ -450,25 +448,39 @@ function selectSpecies(id, updateHash = true) {
   setMainPhoto(sp, 0);
   renderThumbs(sp);
 
-  document.querySelectorAll(".specBtn").forEach(b => {
-    b.classList.toggle("active", b.dataset.id === id);
-  });
+  highlightActiveCard();
 }
 
-function renderButtons() {
-  els.buttonContainer.innerHTML = "";
+function renderCards() {
+  els.cardGrid.innerHTML = "";
   const visible = SPECIES.filter(matchesFilters);
 
+  if (els.noResults) {
+    els.noResults.style.display = visible.length ? "none" : "block";
+  }
+
   visible.forEach(sp => {
-    const b = document.createElement("button");
-    b.className = "specBtn";
-    b.textContent = sp.name;
-    b.dataset.id = sp.id;
-    b.onclick = () => selectSpecies(sp.id, true);
-    els.buttonContainer.appendChild(b);
+    const card = document.createElement("div");
+    card.className = "specCard";
+    card.dataset.id = sp.id;
+
+    // show only a couple taxonomy chips for cleanliness
+    const chips = (sp.tags || []).slice(0, 2).map(t => `<span class="tagChip">${t}</span>`).join("");
+
+    card.innerHTML = `
+      <img class="cardImg" src="${firstPhoto(sp)}" alt="">
+      <div class="cardBody">
+        <h3 class="cardTitle">${sp.name}</h3>
+        <div class="cardSub">${sp.scientific || ""}</div>
+        <div class="cardTags">${chips}</div>
+      </div>
+    `;
+
+    card.onclick = () => selectSpecies(sp.id, true);
+    els.cardGrid.appendChild(card);
   });
 
-  // If selected species is filtered out, clear view
+  // If active selection gets filtered out, clear the right panel
   if (activeSpeciesId && !visible.some(s => s.id === activeSpeciesId)) {
     activeSpeciesId = null;
     els.speciesName.textContent = "Select a species above";
@@ -480,25 +492,26 @@ function renderButtons() {
     els.doDont.style.display = "none";
   }
 
-  // Auto-select first visible if none selected and no hash
+  // If nothing selected yet and no hash, auto-select first visible
   if (!activeSpeciesId && visible.length > 0 && !(location.hash || "").replace("#", "")) {
     selectSpecies(visible[0].id, false);
   }
+
+  highlightActiveCard();
 }
 
 function loadFromHash() {
   const id = (location.hash || "").replace("#", "");
   if (!id) return;
   if (SPECIES.some(s => s.id === id)) {
-    // Do not rewrite hash while loading it
     selectSpecies(id, false);
   }
 }
 
-els.searchInput.addEventListener("input", () => renderButtons());
+els.searchInput.addEventListener("input", () => renderCards());
 window.addEventListener("hashchange", loadFromHash);
 
 // Init
 renderTagBar();
-renderButtons();
+renderCards();
 loadFromHash();
