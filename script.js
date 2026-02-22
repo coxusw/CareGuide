@@ -1,5 +1,6 @@
 // Crested Critters • Care Guide
-// Features: taxonomy-only tags + tag filters + search + quick stats + do/don't + multi-photos
+// Features: taxonomy-only tags + grouped tag filters + search + quick stats + do/don't + multi-photos
+// URL deep-links: .../#species-id
 // Images live in: assets/images/<filename>
 
 const SPECIES = [
@@ -231,47 +232,106 @@ let activeSpeciesId = null;
 let activeTags = new Set();
 
 function allTags() {
-  const s = new Set();
-  SPECIES.forEach(sp => (sp.tags || []).forEach(t => s.add(t)));
-  return Array.from(s).sort((a, b) => a.localeCompare(b));
+  const set = new Set();
+  SPECIES.forEach(sp => (sp.tags || []).forEach(t => set.add(t)));
+  return Array.from(set);
 }
 
 function renderTagBar() {
+  if (!els.tagBar) return;
   els.tagBar.innerHTML = "";
+
+  function makeGroup(label, tags) {
+    if (!tags.length) return;
+
+    const row = document.createElement("div");
+    row.className = "tagGroup";
+
+    const lab = document.createElement("div");
+    lab.className = "tagGroupLabel";
+    lab.textContent = label;
+    row.appendChild(lab);
+
+    tags.sort((a, b) => a.localeCompare(b)).forEach(tag => {
+      const b = document.createElement("button");
+      b.className = "tag";
+      b.textContent = tag;
+      if (activeTags.has(tag)) b.classList.add("active");
+      b.onclick = () => {
+        if (activeTags.has(tag)) activeTags.delete(tag);
+        else activeTags.add(tag);
+        renderTagBar();
+        renderButtons();
+      };
+      row.appendChild(b);
+    });
+
+    els.tagBar.appendChild(row);
+  }
+
+  // "All" row
+  const allRow = document.createElement("div");
+  allRow.className = "tagGroup";
+
+  const allLabel = document.createElement("div");
+  allLabel.className = "tagGroupLabel";
+  allLabel.textContent = "Filter";
+  allRow.appendChild(allLabel);
 
   const allBtn = document.createElement("button");
   allBtn.className = "tag";
   allBtn.textContent = "All";
+  if (activeTags.size === 0) allBtn.classList.add("active");
   allBtn.onclick = () => {
     activeTags.clear();
     renderTagBar();
     renderButtons();
   };
-  if (activeTags.size === 0) allBtn.classList.add("active");
-  els.tagBar.appendChild(allBtn);
+  allRow.appendChild(allBtn);
+  els.tagBar.appendChild(allRow);
 
-  allTags().forEach(tag => {
-    const b = document.createElement("button");
-    b.className = "tag";
-    b.textContent = tag;
-    if (activeTags.has(tag)) b.classList.add("active");
-    b.onclick = () => {
-      if (activeTags.has(tag)) activeTags.delete(tag);
-      else activeTags.add(tag);
-      renderTagBar();
-      renderButtons();
-    };
-    els.tagBar.appendChild(b);
-  });
+  // Divider
+  const div1 = document.createElement("div");
+  div1.className = "tagDivider";
+  els.tagBar.appendChild(div1);
+
+  const tags = allTags();
+  const genusTags = tags.filter(t => t.startsWith("Genus: "));
+  const speciesTags = tags.filter(t => t.startsWith("Species: "));
+  const otherTags = tags.filter(t => !t.startsWith("Genus: ") && !t.startsWith("Species: "));
+
+  makeGroup("Genus", genusTags);
+
+  if (genusTags.length) {
+    const d = document.createElement("div");
+    d.className = "tagDivider";
+    els.tagBar.appendChild(d);
+  }
+
+  makeGroup("Species", speciesTags);
+
+  if (speciesTags.length) {
+    const d = document.createElement("div");
+    d.className = "tagDivider";
+    els.tagBar.appendChild(d);
+  }
+
+  makeGroup("Other", otherTags); // Springtails lives here
 }
 
 function matchesFilters(sp) {
-  const q = (els.searchInput.value || "").trim().toLowerCase();
+  const q = (els.searchInput?.value || "").trim().toLowerCase();
   const hay = [
-    sp.name, sp.scientific, sp.origin, sp.difficulty, sp.humidity, sp.temp,
+    sp.name,
+    sp.scientific,
+    sp.origin,
+    sp.difficulty,
+    sp.humidity,
+    sp.temp,
     ...(sp.tags || []),
     ...(sp.staples || []),
-    sp.notes, sp.enclosure
+    sp.notes,
+    sp.enclosure,
   ].join(" ").toLowerCase();
 
   const matchesSearch = q === "" || hay.includes(q);
@@ -324,12 +384,16 @@ function renderQuickStats(sp) {
     ["Origin", sp.origin || "—"],
   ];
 
-  els.quickStats.innerHTML = items.map(([k, v]) => `
+  els.quickStats.innerHTML = items
+    .map(
+      ([k, v]) => `
     <div class="stat">
       <div class="k">${k}</div>
       <div class="v">${v}</div>
     </div>
-  `).join("");
+  `
+    )
+    .join("");
 }
 
 function renderDoDont(sp) {
@@ -348,7 +412,6 @@ function renderDoDont(sp) {
 
 function renderCareInfo(sp) {
   const stapleLines = (sp.staples || []).map(x => `• ${x}`).join("\n");
-
   const tagLine = (sp.tags || []).join(", ");
 
   els.careInfo.textContent =
@@ -367,11 +430,17 @@ ${sp.notes || "—"}
 `;
 }
 
-function selectSpecies(id) {
+function selectSpecies(id, updateHash = true) {
   const sp = SPECIES.find(x => x.id === id);
   if (!sp) return;
 
   activeSpeciesId = id;
+
+  if (updateHash) {
+    // Enables links like .../#rubber-ducky
+    location.hash = id;
+  }
+
   els.speciesName.textContent = sp.name;
 
   renderQuickStats(sp);
@@ -388,7 +457,6 @@ function selectSpecies(id) {
 
 function renderButtons() {
   els.buttonContainer.innerHTML = "";
-
   const visible = SPECIES.filter(matchesFilters);
 
   visible.forEach(sp => {
@@ -396,10 +464,11 @@ function renderButtons() {
     b.className = "specBtn";
     b.textContent = sp.name;
     b.dataset.id = sp.id;
-    b.onclick = () => selectSpecies(sp.id);
+    b.onclick = () => selectSpecies(sp.id, true);
     els.buttonContainer.appendChild(b);
   });
 
+  // If selected species is filtered out, clear view
   if (activeSpeciesId && !visible.some(s => s.id === activeSpeciesId)) {
     activeSpeciesId = null;
     els.speciesName.textContent = "Select a species above";
@@ -411,13 +480,25 @@ function renderButtons() {
     els.doDont.style.display = "none";
   }
 
-  if (!activeSpeciesId && visible.length > 0) {
-    selectSpecies(visible[0].id);
+  // Auto-select first visible if none selected and no hash
+  if (!activeSpeciesId && visible.length > 0 && !(location.hash || "").replace("#", "")) {
+    selectSpecies(visible[0].id, false);
+  }
+}
+
+function loadFromHash() {
+  const id = (location.hash || "").replace("#", "");
+  if (!id) return;
+  if (SPECIES.some(s => s.id === id)) {
+    // Do not rewrite hash while loading it
+    selectSpecies(id, false);
   }
 }
 
 els.searchInput.addEventListener("input", () => renderButtons());
+window.addEventListener("hashchange", loadFromHash);
 
 // Init
 renderTagBar();
 renderButtons();
+loadFromHash();
