@@ -1,6 +1,5 @@
 // ======= Species database =======
-// Edit / expand these objects to update the site.
-// Images should be stored in /images and referenced here.
+// Put all images in /images and make sure filenames match EXACTLY (case + spaces).
 
 const SPECIES = [
   {
@@ -16,7 +15,9 @@ const SPECIES = [
     breeding: "Slow to moderate. Stability matters more than ‘perfect’ numbers.",
     issues: ["Crashes from overly wet substrate", "Mold bloom from excess food", "Poor ventilation + saturated soil"],
     notes: "Sensitive to swings. Prioritize stability, deep leaf litter, and consistent access to decaying wood + calcium.",
-    photo: { src: "images/rubber-ducky.jpg", caption: "Add your own photo for best accuracy." },
+    photos: [
+      { src: "images/Rubber Ducky.jpeg", caption: "Rubber Ducky (Cubaris sp.)." },
+    ],
     updated: "2026-02-22",
   },
 
@@ -33,7 +34,10 @@ const SPECIES = [
     breeding: "Moderate (varies by line).",
     issues: ["Too dry → inactivity & poor reproduction", "Too wet → die-offs"],
     notes: "Treat like a humidity-loving Cubaris. Give lots of wood and leaf litter.",
-    photo: { src: "images/pineapple-spikey.jpg", caption: "Trade names vary—use your own picture for ID." },
+    photos: [
+      { src: "images/PineApple Spikey.jpeg", caption: "Pineapple Spikey (photo 1)." },
+      { src: "images/PineApple Spiky isopod.png", caption: "Pineapple Spikey (photo 2)." },
+    ],
     updated: "2026-02-22",
   },
 
@@ -50,7 +54,9 @@ const SPECIES = [
     breeding: "Fast. Great cleanup crew.",
     issues: ["Overpopulation if fed heavy protein", "Mites if enclosure stays too wet/dirty"],
     notes: "One of the best beginner species and bioactive workers.",
-    photo: { src: "images/powder-orange.jpg", caption: "Fast breeders—plan enclosure space accordingly." },
+    photos: [
+      { src: "images/Powder Orange.jpeg", caption: "Powder Orange (Porcellionides pruinosus)." },
+    ],
     updated: "2026-02-22",
   },
 
@@ -67,7 +73,9 @@ const SPECIES = [
     breeding: "Fast.",
     issues: ["Overfeeding protein → boom/bust population swings"],
     notes: "Care is identical to other P. pruinosus morphs.",
-    photo: { src: "images/orange-cream.jpg", caption: "Morph care matches Powder Orange." },
+    photos: [
+      { src: "images/Orange Cream isopod.png", caption: "Orange Cream morph." },
+    ],
     updated: "2026-02-22",
   },
 
@@ -84,24 +92,9 @@ const SPECIES = [
     breeding: "Fast.",
     issues: ["Protein-heavy diet → explosive growth", "Too wet → ammonia smells/mold"],
     notes: "Hardy, active, and forgiving.",
-    photo: { src: "images/oreo-crumble.jpg", caption: "Active surface species with food present." },
-    updated: "2026-02-22",
-  },
-
-  {
-    id: "black-panda",
-    name: "Black Panda",
-    scientific: "Cubaris sp.",
-    difficulty: "Moderate–Advanced",
-    origin: "Thailand (trade name, commonly humidity-loving Cubaris)",
-    humidity: "70–85% with stable gradient",
-    temp: "68–76°F",
-    diet: ["Leaf litter", "Decaying hardwood", "Isopod chow", "Occasional protein", "Calcium"],
-    enclosure: "Deep substrate and lots of wood. Keep one side humid with sphagnum/moss.",
-    breeding: "Slow to moderate.",
-    issues: ["Swings in humidity/temperature", "Soggy substrate + poor ventilation"],
-    notes: "Stability + wood-heavy diet are key.",
-    photo: { src: "images/black-panda.jpg", caption: "Use your own photo for consistency." },
+    photos: [
+      { src: "images/Oreo Crumble 2.jpeg", caption: "Oreo Crumble." },
+    ],
     updated: "2026-02-22",
   },
 
@@ -118,7 +111,9 @@ const SPECIES = [
     breeding: "Moderate (line-dependent).",
     issues: ["Too wet = losses", "Too dry = stalled colony"],
     notes: "Treat as a humidity-loving Cubaris. Don’t over-mist.",
-    photo: { src: "images/red-panda.jpg", caption: "Trade names vary by seller." },
+    photos: [
+      { src: "images/Red Panda 2.jpeg", caption: "Red Panda (trade name)." },
+    ],
     updated: "2026-02-22",
   },
 
@@ -135,7 +130,9 @@ const SPECIES = [
     breeding: "Moderate to fast once established.",
     issues: ["Too wet substrate → losses", "Low calcium → weak molts"],
     notes: "Often does best with more ventilation than Cubaris types.",
-    photo: { src: "images/white-zebra.jpg", caption: "Higher ventilation + gradient works well." },
+    photos: [
+      { src: "images/High White Zebra isopod.png", caption: "High White Zebra." },
+    ],
     updated: "2026-02-22",
   },
 
@@ -152,16 +149,19 @@ const SPECIES = [
     breeding: "Moderate to fast.",
     issues: ["Too wet → die-offs", "No calcium → molting problems"],
     notes: "Care matches White Zebra.",
-    photo: { src: "images/yellow-zebra.jpg", caption: "Keep a drier overall enclosure." },
+    photos: [
+      { src: "images/Yellow Zebra isopod.png", caption: "Yellow Zebra." },
+    ],
     updated: "2026-02-22",
   },
 
+  // Gestroi (Gold Spot) — you provided 2 images, so we show both.
   {
     id: "gestroi-gold-spot",
     name: "Gestroi Gold Spot",
-    scientific: "Armadillidium gestroi (morph / line)",
+    scientific: "Armadillidium gestroi (line/morph)",
     difficulty: "Easy",
-    origin: "Mediterranean region (species), morph/line captive",
+    origin: "Mediterranean region (species), line captive",
     humidity: "55–75% with gradient (drier overall than Cubaris)",
     temp: "68–82°F",
     diet: ["Leaf litter", "Rotting wood", "Veg", "Occasional protein", "Calcium"],
@@ -169,31 +169,36 @@ const SPECIES = [
     breeding: "Fast once established.",
     issues: ["Staying too wet", "Overcrowding without fresh leaf litter"],
     notes: "Very hardy ‘pill’ type. Calcium source is important.",
-    photo: { src: "images/gestroi-gold-spot.jpg", caption: "Active and hardy with proper gradient." },
+    photos: [
+      { src: "images/Gestroi.jpeg", caption: "Gestroi (photo 1)." },
+      { src: "images/Gestroi isopod.png", caption: "Gestroi (photo 2)." },
+    ],
     updated: "2026-02-22",
   },
 
   {
-    id: "gestroi-zinger",
-    name: "Gestroi Zinger",
-    scientific: "Armadillidium gestroi (morph / line)",
+    id: "dairy-cow",
+    name: "Dairy Cow",
+    scientific: "Porcellio laevis (morph)",
     difficulty: "Easy",
-    origin: "Mediterranean region (species), morph/line captive",
-    humidity: "55–75% with gradient",
-    temp: "68–82°F",
-    diet: ["Leaf litter", "Wood", "Veg", "Protein occasionally", "Calcium"],
-    enclosure: "Same as other A. gestroi: well-ventilated with a humid corner.",
-    breeding: "Fast.",
-    issues: ["Constant wet substrate", "Low leaf litter over time"],
-    notes: "Care matches other gestroi lines.",
-    photo: { src: "images/gestroi-zinger.jpg", caption: "Keep plenty of leaf litter and wood." },
+    origin: "Captive-bred morph",
+    humidity: "60–75% with gradient",
+    temp: "65–80°F",
+    diet: ["Leaf litter", "Rotting wood", "Veg", "Protein 1–2x/week", "Calcium"],
+    enclosure: "Provide hides and a moist corner; keep a gradient (not swampy).",
+    breeding: "Fast; prolific once established.",
+    issues: ["Overpopulation", "Too wet substrate → odor/mold"],
+    notes: "Hardy beginner morph, great eater and reproducer.",
+    photos: [
+      { src: "images/Dairy Cow.png", caption: "Dairy Cow morph." },
+    ],
     updated: "2026-02-22",
   },
 
   {
     id: "temperate-springtails",
     name: "Temperate Springtails",
-    scientific: "Collembola (commonly Folsomia candida cultures)",
+    scientific: "Collembola (often Folsomia candida cultures)",
     difficulty: "Very easy",
     origin: "Worldwide",
     humidity: "70–100% (depending on culture medium)",
@@ -203,7 +208,9 @@ const SPECIES = [
     breeding: "Fast; population responds to feeding + moisture.",
     issues: ["Overfeeding → mold explosion", "Dry-out → die-off"],
     notes: "Excellent cleanup crew; add to bioactives and refresh periodically.",
-    photo: { src: "images/springtails.jpg", caption: "Keep cultures lightly fed and consistently moist." },
+    photos: [
+      { src: "images/SpringTail Culture.png", caption: "Temperate springtail culture." },
+    ],
     updated: "2026-02-22",
   },
 ];
@@ -217,12 +224,12 @@ const els = {
 
   emptyState: document.getElementById("emptyState"),
   detailWrap: document.getElementById("detail"),
-  detailPanel: document.getElementById("detailPanel"),
 
   speciesName: document.getElementById("speciesName"),
   scientificName: document.getElementById("scientificName"),
   difficultyBadge: document.getElementById("difficultyBadge"),
   lastUpdated: document.getElementById("lastUpdated"),
+
   speciesImage: document.getElementById("speciesImage"),
   photoCaption: document.getElementById("photoCaption"),
   quickStats: document.getElementById("quickStats"),
@@ -238,30 +245,35 @@ const els = {
   year: document.getElementById("year"),
 };
 
-els.year.textContent = new Date().getFullYear();
+if (els.year) els.year.textContent = new Date().getFullYear();
 
-function formatDate(iso){
-  if(!iso) return "";
+function formatDate(iso) {
+  if (!iso) return "";
   const d = new Date(iso + "T00:00:00");
-  return "Updated: " + d.toLocaleDateString(undefined, { year:"numeric", month:"short", day:"numeric" });
+  return "Updated: " + d.toLocaleDateString(undefined, { year: "numeric", month: "short", day: "numeric" });
 }
 
-function difficultyClass(diff){
+function difficultyClass(diff) {
   const d = (diff || "").toLowerCase();
-  if(d.includes("very")) return "easy";
-  if(d.includes("easy")) return "easy";
-  if(d.includes("moderate")) return "moderate";
-  if(d.includes("advanced")) return "advanced";
+  if (d.includes("very")) return "easy";
+  if (d.includes("easy")) return "easy";
+  if (d.includes("moderate")) return "moderate";
+  if (d.includes("advanced")) return "advanced";
   return "";
 }
 
-function escapeHtml(str){
+function escapeHtml(str) {
   return String(str).replace(/[&<>"']/g, (m) => ({
-    "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"
+    "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#039;"
   }[m]));
 }
 
-function renderList(items){
+function firstPhotoSrc(s) {
+  const p = s.photos?.[0]?.src;
+  return p || "";
+}
+
+function renderList(items) {
   // chips
   els.chipContainer.innerHTML = "";
   items.forEach(s => {
@@ -282,7 +294,7 @@ function renderList(items){
     card.onclick = () => selectSpecies(s.id, true);
 
     card.innerHTML = `
-      <img class="thumb" src="${escapeHtml(s.photo?.src || "")}" alt="">
+      <img class="thumb" src="${escapeHtml(firstPhotoSrc(s))}" alt="">
       <div>
         <h4>${escapeHtml(s.name)}</h4>
         <div class="sub">${escapeHtml(s.scientific || "")} • ${escapeHtml(s.difficulty || "")}</div>
@@ -294,13 +306,13 @@ function renderList(items){
   els.resultCount.textContent = `${items.length} shown`;
 }
 
-function setActiveChip(id){
+function setActiveChip(id) {
   document.querySelectorAll(".chip").forEach(ch => {
     ch.classList.toggle("active", ch.dataset.id === id);
   });
 }
 
-function renderQuickStats(s){
+function renderQuickStats(s) {
   const stats = [
     { k: "Origin", v: s.origin },
     { k: "Humidity", v: s.humidity },
@@ -315,14 +327,76 @@ function renderQuickStats(s){
   `).join("");
 }
 
-function renderBullets(arr){
-  if(!arr?.length) return "<p class='muted'>—</p>";
+function renderBullets(arr) {
+  if (!arr?.length) return "<p class='muted'>—</p>";
   return `<ul>${arr.map(x => `<li>${escapeHtml(x)}</li>`).join("")}</ul>`;
 }
 
-function selectSpecies(id, updateHash){
+function ensureThumbBar() {
+  // Create a thumbnail bar under the main image if it doesn't exist
+  let bar = document.getElementById("thumbBar");
+  if (!bar) {
+    bar = document.createElement("div");
+    bar.id = "thumbBar";
+    // inline styles so you don't have to edit CSS
+    bar.style.display = "flex";
+    bar.style.gap = "8px";
+    bar.style.padding = "10px 12px";
+    bar.style.flexWrap = "wrap";
+    bar.style.borderTop = "1px solid rgba(255,255,255,0.12)";
+    // Insert after caption (caption exists inside photo-card)
+    if (els.photoCaption && els.photoCaption.parentElement) {
+      els.photoCaption.parentElement.appendChild(bar);
+    }
+  }
+  return bar;
+}
+
+function setMainPhoto(photo) {
+  els.speciesImage.src = photo?.src || "";
+  els.speciesImage.alt = els.speciesName.textContent || "";
+  els.photoCaption.textContent = photo?.caption || "";
+}
+
+function renderThumbnails(s) {
+  const bar = ensureThumbBar();
+  bar.innerHTML = "";
+
+  const photos = s.photos || [];
+  if (photos.length <= 1) {
+    bar.style.display = "none";
+    return;
+  }
+
+  bar.style.display = "flex";
+
+  photos.forEach((p, idx) => {
+    const t = document.createElement("img");
+    t.src = p.src;
+    t.alt = `${s.name} thumbnail ${idx + 1}`;
+    t.title = "Click to view";
+    t.style.width = "64px";
+    t.style.height = "46px";
+    t.style.objectFit = "cover";
+    t.style.borderRadius = "10px";
+    t.style.cursor = "pointer";
+    t.style.border = "1px solid rgba(255,255,255,0.12)";
+    t.style.opacity = idx === 0 ? "1" : "0.75";
+
+    t.onclick = () => {
+      setMainPhoto(p);
+      // highlight active thumb
+      [...bar.querySelectorAll("img")].forEach(img => img.style.opacity = "0.75");
+      t.style.opacity = "1";
+    };
+
+    bar.appendChild(t);
+  });
+}
+
+function selectSpecies(id, updateHash) {
   const s = SPECIES.find(x => x.id === id);
-  if(!s) return;
+  if (!s) return;
 
   els.emptyState.hidden = true;
   els.detailWrap.hidden = false;
@@ -334,29 +408,17 @@ function selectSpecies(id, updateHash){
   els.difficultyBadge.textContent = s.difficulty || "";
   els.difficultyBadge.className = `badge ${difficultyClass(s.difficulty)}`;
 
-  els.speciesImage.src = s.photo?.src || "";
-  els.speciesImage.alt = s.name;
-  els.photoCaption.textContent = s.photo?.caption || "";
+  // main photo defaults to first, with thumbnails if multiple
+  const first = s.photos?.[0] || { src: "", caption: "" };
+  setMainPhoto(first);
+  renderThumbnails(s);
 
   renderQuickStats(s);
 
-  els.overview.innerHTML = `
-    <p>${escapeHtml(s.notes || "")}</p>
-  `;
-
-  els.enclosure.innerHTML = `
-    <p>${escapeHtml(s.enclosure || "")}</p>
-  `;
-
-  els.feeding.innerHTML = `
-    <p><strong>Staples:</strong></p>
-    ${renderBullets(s.diet)}
-  `;
-
-  els.breeding.innerHTML = `
-    <p>${escapeHtml(s.breeding || "—")}</p>
-  `;
-
+  els.overview.innerHTML = `<p>${escapeHtml(s.notes || "")}</p>`;
+  els.enclosure.innerHTML = `<p>${escapeHtml(s.enclosure || "")}</p>`;
+  els.feeding.innerHTML = `<p><strong>Staples:</strong></p>${renderBullets(s.diet)}`;
+  els.breeding.innerHTML = `<p>${escapeHtml(s.breeding || "—")}</p>`;
   els.issues.innerHTML = renderBullets(s.issues);
 
   setActiveChip(id);
@@ -366,12 +428,10 @@ function selectSpecies(id, updateHash){
     c.style.outline = c.dataset.id === id ? "2px solid rgba(65,195,106,0.55)" : "none";
   });
 
-  if(updateHash){
-    location.hash = id;
-  }
+  if (updateHash) location.hash = id;
 }
 
-function applySearch(){
+function applySearch() {
   const q = (els.searchInput.value || "").trim().toLowerCase();
 
   const filtered = SPECIES.filter(s => {
@@ -385,8 +445,6 @@ function applySearch(){
   });
 
   renderList(filtered);
-
-  // If current selection is filtered out, don’t force-change it.
 }
 
 els.searchInput.addEventListener("input", applySearch);
@@ -394,11 +452,11 @@ els.searchInput.addEventListener("input", applySearch);
 els.copyLinkBtn.addEventListener("click", async () => {
   const id = location.hash?.replace("#", "");
   const url = `${location.origin}${location.pathname}#${id || ""}`;
-  try{
+  try {
     await navigator.clipboard.writeText(url);
     els.copyLinkBtn.textContent = "Copied!";
     setTimeout(() => els.copyLinkBtn.textContent = "Copy link", 900);
-  }catch(e){
+  } catch (e) {
     alert("Could not copy link. You can manually copy the address bar URL.");
   }
 });
@@ -418,16 +476,19 @@ els.downloadTemplateBtn.addEventListener("click", async () => {
   breeding: "",
   issues: [""],
   notes: "",
-  photo: { src: "images/new-species.jpg", caption: "" },
-  updated: "${new Date().toISOString().slice(0,10)}",
+  photos: [
+    { src: "images/new-species-1.jpg", caption: "Photo 1" },
+    { src: "images/new-species-2.jpg", caption: "Photo 2" },
+  ],
+  updated: "${new Date().toISOString().slice(0, 10)}",
 },
 `.trim();
 
-  try{
+  try {
     await navigator.clipboard.writeText(template);
     els.downloadTemplateBtn.textContent = "Template copied!";
     setTimeout(() => els.downloadTemplateBtn.textContent = "Copy template block", 1100);
-  }catch(e){
+  } catch (e) {
     alert("Could not copy template. You can copy it from script.js.");
   }
 });
@@ -436,12 +497,15 @@ els.downloadTemplateBtn.addEventListener("click", async () => {
 renderList(SPECIES);
 
 // Deep link support
-function loadFromHash(){
+function loadFromHash() {
   const id = (location.hash || "").replace("#", "");
-  if(!id){
+  if (!id) {
     els.emptyState.hidden = false;
     els.detailWrap.hidden = true;
     setActiveChip(null);
+    // hide thumb bar if present
+    const bar = document.getElementById("thumbBar");
+    if (bar) bar.style.display = "none";
     return;
   }
   selectSpecies(id, false);
