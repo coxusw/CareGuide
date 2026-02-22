@@ -213,6 +213,29 @@ body{
   color: var(--muted);
   text-align:center;
 }
+/* Tag grouping separators */
+.tagGroup {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.tagGroupLabel {
+  font-weight: 800;
+  color: var(--muted);
+  font-size: 0.9rem;
+  margin-right: 6px;
+}
+
+.tagDivider {
+  height: 1px;
+  width: 100%;
+  background: var(--border);
+  margin: 10px 0;
+  opacity: 0.8;
+}
 
 @media (max-width: 900px){
   .quickStats{ grid-template-columns: repeat(2, minmax(0, 1fr)); }
