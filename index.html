@@ -1,27 +1,150 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>Crested Critters Isopod Care Guide</title>
-<link rel="stylesheet" href="style.css">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Crested Critters • Isopod Care Guide</title>
+  <meta name="description" content="Crested Critters isopod & springtail care guide reference." />
+
+  <!-- Optional: if you have a favicon -->
+  <link rel="icon" href="assets/favicon.png" />
+
+  <link rel="stylesheet" href="style.css" />
 </head>
+
 <body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="#" aria-label="Crested Critters Home">
+        <img class="brand-logo" src="assets/crest-logo.png" alt="Crested Critters logo" />
+        <div class="brand-text">
+          <div class="brand-name">Crested Critters</div>
+          <div class="brand-subtitle">Isopod Care Guide Reference</div>
+        </div>
+      </a>
 
-<h1>Crested Critters Care Guide</h1>
+      <nav class="header-actions">
+        <a class="btn btn-ghost" href="#all" id="viewAllBtn">View all</a>
+        <a class="btn btn-primary" href="#request" id="requestBtn">Request a species</a>
+      </nav>
+    </div>
+  </header>
 
-<div id="buttonContainer"></div>
+  <main class="container main">
+    <section class="toolbar" id="all">
+      <div class="toolbar-left">
+        <h1 class="page-title">Care Guide Library</h1>
+        <p class="page-subtitle">
+          Click a species to view photos + husbandry notes. Built for quick reference.
+        </p>
+      </div>
 
-<div id="careDisplay">
+      <div class="toolbar-right">
+        <label class="search" aria-label="Search species">
+          <span class="search-icon">⌕</span>
+          <input id="searchInput" type="search" placeholder="Search (e.g., zebra, gestroi, springtails)" />
+        </label>
+      </div>
+    </section>
 
-    <h2 id="speciesName">Select a species above</h2>
+    <section class="chip-nav">
+      <div class="chip-wrap" id="chipContainer" aria-label="Species navigation"></div>
+    </section>
 
-    <img id="speciesImage" src="" alt="" style="display:none;">
+    <section class="layout">
+      <!-- Left: selected species detail -->
+      <article class="panel panel-detail" id="detailPanel" aria-live="polite">
+        <div class="empty-state" id="emptyState">
+          <div class="empty-badge">Crested Critters Reference</div>
+          <h2>Select a species</h2>
+          <p>Use the chips above or search to find a care guide.</p>
+        </div>
 
-    <div id="careInfo"></div>
+        <div class="detail" id="detail" hidden>
+          <div class="detail-top">
+            <div class="detail-title">
+              <h2 id="speciesName"></h2>
+              <div class="meta-row">
+                <span class="badge" id="difficultyBadge"></span>
+                <span class="meta" id="scientificName"></span>
+                <span class="meta" id="lastUpdated"></span>
+              </div>
+            </div>
 
-</div>
+            <div class="detail-actions">
+              <button class="btn btn-ghost" id="copyLinkBtn" type="button">Copy link</button>
+            </div>
+          </div>
 
-<script src="script.js"></script>
+          <div class="detail-grid">
+            <div class="photo-card">
+              <img id="speciesImage" class="species-image" alt="" />
+              <div class="photo-caption" id="photoCaption"></div>
+            </div>
 
+            <div class="quick-stats" id="quickStats"></div>
+          </div>
+
+          <div class="sections">
+            <section class="section">
+              <h3>Overview</h3>
+              <div class="prose" id="overview"></div>
+            </section>
+
+            <section class="section">
+              <h3>Enclosure setup</h3>
+              <div class="prose" id="enclosure"></div>
+            </section>
+
+            <section class="section">
+              <h3>Feeding</h3>
+              <div class="prose" id="feeding"></div>
+            </section>
+
+            <section class="section">
+              <h3>Breeding notes</h3>
+              <div class="prose" id="breeding"></div>
+            </section>
+
+            <section class="section">
+              <h3>Common issues</h3>
+              <div class="prose" id="issues"></div>
+            </section>
+          </div>
+        </div>
+      </article>
+
+      <!-- Right: featured list / all species cards -->
+      <aside class="panel panel-list">
+        <div class="list-header">
+          <h2 class="list-title">All species</h2>
+          <div class="list-meta"><span id="resultCount"></span></div>
+        </div>
+
+        <div class="card-list" id="cardList"></div>
+
+        <div class="request" id="request">
+          <h3>Want another species added?</h3>
+          <p>
+            Add it in <code>script.js</code> or message Crested Critters with the species name + your notes.
+          </p>
+          <div class="request-actions">
+            <a class="btn btn-primary" href="mailto:youremail@example.com?subject=Crested%20Critters%20Care%20Guide%20Request">Email request</a>
+            <button class="btn btn-ghost" id="downloadTemplateBtn" type="button">Copy template block</button>
+          </div>
+          <p class="muted small">Replace the email address above with yours (or remove this block).</p>
+        </div>
+      </aside>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div>© <span id="year"></span> Crested Critters • Reference guide</div>
+      <div class="muted">Built for GitHub Pages • Static + easy to edit</div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
 </body>
 </html>
