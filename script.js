@@ -1,4 +1,5 @@
-// Crested Critters • Care Guide (tags + quick stats + do/don't)
+// Crested Critters • Care Guide
+// Features: taxonomy-only tags + tag filters + search + quick stats + do/don't + multi-photos
 // Images live in: assets/images/<filename>
 
 const SPECIES = [
@@ -7,8 +8,8 @@ const SPECIES = [
     name: "Rubber Ducky",
     scientific: "Cubaris sp.",
     difficulty: "Advanced",
-    tags: ["Cubaris", "High humidity", "Advanced"],
-    origin: "Thailand",
+    tags: ["Genus: Cubaris", "Species: sp."],
+    origin: "Thailand (trade name; locality varies by line)",
     humidity: "75–90% (stable gradient)",
     temp: "68–76°F",
     staples: ["Leaf litter", "Decaying hardwood", "Calcium always", "Protein 1x/week", "Quality chow"],
@@ -23,17 +24,17 @@ const SPECIES = [
   {
     id: "pineapple-spikey",
     name: "Pineapple Spikey",
-    scientific: "Cubaris sp. (trade name)",
+    scientific: "Cristarmadillidium muricatum",
     difficulty: "Moderate",
-    tags: ["Cubaris", "High humidity", "Moderate"],
-    origin: "Southeast Asia",
-    humidity: "70–85% (gradient)",
-    temp: "70–78°F",
-    staples: ["Leaf litter", "Rotting hardwood", "Calcium always", "Protein 1–2x/week"],
-    notes: "Treat like a humidity-loving Cubaris. Stability + wood-heavy habitat.",
-    enclosure: "Humidity gradient with good airflow. Cork bark and wood pieces help activity and microclimates.",
-    do: ["Offer rotting hardwood and hides", "Keep a humid moss pocket", "Ventilate to prevent swamp conditions"],
-    dont: ["Let the enclosure dry completely", "Keep it constantly waterlogged", "Overfeed wet foods"],
+    tags: ["Genus: Cristarmadillidium", "Species: muricatum"],
+    origin: "Mediterranean region (species range); hobby lines vary",
+    humidity: "60–80% (gradient; avoid constant wet)",
+    temp: "68–80°F",
+    staples: ["Leaf litter", "Hardwood", "Calcium always", "Protein occasionally", "Veg (small amounts)"],
+    notes: "Keep a moisture gradient and good airflow. Avoid swamp conditions; provide plenty of hides and leaf litter.",
+    enclosure: "Ventilated setup with a drier overall enclosure and a moist corner (moss). Cork/wood for hides.",
+    do: ["Ventilate well", "Keep a moist corner only", "Provide calcium 24/7", "Give lots of leaf litter/hides"],
+    dont: ["Keep the whole enclosure wet", "Overfeed wet foods", "Let it dry out completely for long periods"],
     photos: [
       { src: "assets/images/PineApple Spikey.jpeg", caption: "Pineapple Spikey (photo 1)." },
       { src: "assets/images/PineApple Spiky isopod.png", caption: "Pineapple Spikey (photo 2)." },
@@ -46,8 +47,8 @@ const SPECIES = [
     name: "Powder Orange",
     scientific: "Porcellionides pruinosus",
     difficulty: "Easy",
-    tags: ["Beginner", "Cleanup crew", "Fast breeder", "Moderate humidity"],
-    origin: "Mediterranean (widely established)",
+    tags: ["Genus: Porcellionides", "Species: pruinosus"],
+    origin: "Mediterranean region; widely established",
     humidity: "50–70% (tolerant gradient)",
     temp: "65–82°F",
     staples: ["Leaf litter", "Veg", "Chow", "Calcium", "Protein occasionally"],
@@ -64,7 +65,7 @@ const SPECIES = [
     name: "Orange Cream",
     scientific: "Porcellionides pruinosus (morph)",
     difficulty: "Easy",
-    tags: ["Beginner", "Cleanup crew", "Fast breeder", "Moderate humidity"],
+    tags: ["Genus: Porcellionides", "Species: pruinosus"],
     origin: "Captive-bred morph",
     humidity: "50–70% (gradient)",
     temp: "65–82°F",
@@ -80,17 +81,17 @@ const SPECIES = [
   {
     id: "oreo-crumble",
     name: "Oreo Crumble",
-    scientific: "Porcellio laevis (trade association)",
+    scientific: "Porcellionides pruinosus (morph/line)",
     difficulty: "Easy",
-    tags: ["Beginner", "Fast breeder", "Protein friendly", "Moderate humidity"],
-    origin: "Europe (species group widely kept)",
-    humidity: "60–75% (gradient)",
-    temp: "65–80°F",
-    staples: ["Leaf litter", "Wood", "Calcium", "Protein 1–2x/week", "Veg"],
-    notes: "Hardy and active. Will explode in numbers if protein is heavy.",
-    enclosure: "Hides + a moist corner. Keep airflow to prevent odor and mold.",
-    do: ["Provide hides and wood", "Feed protein 1–2x/week", "Remove uneaten wet foods"],
-    dont: ["Overfeed protein daily", "Let substrate go anaerobic (stinky)"],
+    tags: ["Genus: Porcellionides", "Species: pruinosus"],
+    origin: "Captive line (commonly sold under this trade name)",
+    humidity: "50–70% (gradient)",
+    temp: "65–82°F",
+    staples: ["Leaf litter", "Wood", "Calcium", "Protein occasionally", "Veg"],
+    notes: "Hardy and active. Like other P. pruinosus lines, they can reproduce quickly with abundant food.",
+    enclosure: "Dry side + moist side. Moderate ventilation. Remove uneaten wet foods to control mold.",
+    do: ["Maintain a gradient", "Provide calcium", "Remove uneaten wet foods"],
+    dont: ["Keep everything wet", "Overfeed protein daily"],
     photos: [{ src: "assets/images/Oreo Crumble 2.jpeg", caption: "Oreo Crumble." }],
     updated: "2026-02-22",
   },
@@ -100,14 +101,14 @@ const SPECIES = [
     name: "Red Panda",
     scientific: "Cubaris sp. (trade name)",
     difficulty: "Moderate",
-    tags: ["Cubaris", "High humidity", "Moderate"],
-    origin: "Thailand",
+    tags: ["Genus: Cubaris", "Species: sp."],
+    origin: "Thailand (trade name; locality varies by line)",
     humidity: "70–85% (stable gradient)",
     temp: "68–76°F",
     staples: ["Leaf litter", "Rotting hardwood", "Calcium always", "Protein 1x/week"],
-    notes: "Stability matters. Treat as a humidity-loving Cubaris and avoid over-misting.",
-    enclosure: "Humidity gradient + hides. Don’t saturate the full substrate.",
-    do: ["Keep a humid corner", "Use deep leaf litter + wood", "Ventilate enough to avoid swamp"],
+    notes: "Stability matters. Avoid over-misting and avoid saturating the entire substrate.",
+    enclosure: "Humidity gradient + hides. Don’t keep the entire bin wet; aim for a humid corner only.",
+    do: ["Keep a humid corner", "Use leaf litter + wood", "Ventilate enough to avoid swamp"],
     dont: ["Mist constantly", "Let conditions swing wildly"],
     photos: [{ src: "assets/images/Red Panda 2.jpeg", caption: "Red Panda." }],
     updated: "2026-02-22",
@@ -116,9 +117,9 @@ const SPECIES = [
   {
     id: "white-zebra",
     name: "White Zebra",
-    scientific: "Armadillidium maculatum (trade association)",
+    scientific: "Armadillidium maculatum",
     difficulty: "Easy",
-    tags: ["Armadillidium", "Beginner", "Drier setup", "Moderate breeder"],
+    tags: ["Genus: Armadillidium", "Species: maculatum"],
     origin: "Southern Europe",
     humidity: "55–75% (drier overall + moist corner)",
     temp: "65–80°F",
@@ -136,7 +137,7 @@ const SPECIES = [
     name: "Yellow Zebra",
     scientific: "Armadillidium maculatum (morph)",
     difficulty: "Easy",
-    tags: ["Armadillidium", "Beginner", "Drier setup", "Moderate breeder"],
+    tags: ["Genus: Armadillidium", "Species: maculatum"],
     origin: "Captive morph (A. maculatum)",
     humidity: "55–75% (drier overall + moist corner)",
     temp: "65–80°F",
@@ -152,20 +153,20 @@ const SPECIES = [
   {
     id: "gestroi-gold-spot",
     name: "Gestroi Gold Spot",
-    scientific: "Armadillidium gestroi (line/morph)",
+    scientific: "Armadillidium gestroi",
     difficulty: "Easy",
-    tags: ["Armadillidium", "Beginner", "Drier setup", "Fast breeder"],
-    origin: "Mediterranean region (species), line captive",
-    humidity: "55–75% (ventilated gradient)",
+    tags: ["Genus: Armadillidium", "Species: gestroi"],
+    origin: "Mediterranean region (species), hobby lines vary",
+    humidity: "55–75% (ventilated gradient; drier overall)",
     temp: "68–82°F",
     staples: ["Leaf litter", "Wood", "Calcium always", "Veg", "Protein occasionally"],
     notes: "Very hardy pill-type. Calcium and ventilation are key. Avoid keeping it swampy.",
-    enclosure: "Ventilation + gradient. Drier overall than Cubaris; keep a moist corner only.",
+    enclosure: "Ventilation + gradient. Drier overall; keep a moist corner only.",
     do: ["Keep ventilation up", "Provide a moist corner, not full wet", "Refresh leaf litter regularly"],
     dont: ["Leave it constantly wet", "Let leaf litter run out"],
     photos: [
-      { src: "assets/images/Gestroi.jpeg", caption: "Gestroi (photo 1)." },
-      { src: "assets/images/Gestroi isopod.png", caption: "Gestroi (photo 2)." },
+      { src: "assets/images/Gestroi.jpeg", caption: "Armadillidium gestroi (photo 1)." },
+      { src: "assets/images/Gestroi isopod.png", caption: "Armadillidium gestroi (photo 2)." },
     ],
     updated: "2026-02-22",
   },
@@ -175,7 +176,7 @@ const SPECIES = [
     name: "Dairy Cow",
     scientific: "Porcellio laevis (morph)",
     difficulty: "Easy",
-    tags: ["Beginner", "Fast breeder", "Protein friendly", "Cleanup crew"],
+    tags: ["Genus: Porcellio", "Species: laevis"],
     origin: "Captive-bred morph",
     humidity: "60–75% (gradient)",
     temp: "65–80°F",
@@ -191,9 +192,9 @@ const SPECIES = [
   {
     id: "temperate-springtails",
     name: "Temperate Springtails",
-    scientific: "Collembola (often Folsomia candida)",
+    scientific: "Collembola (commonly cultured)",
     difficulty: "Very easy",
-    tags: ["Cleanup crew", "Beginner", "High humidity"],
+    tags: ["Group: Collembola"],
     origin: "Worldwide",
     humidity: "70–100% (culture-dependent)",
     temp: "60–80°F",
@@ -224,7 +225,7 @@ const els = {
   year: document.getElementById("year"),
 };
 
-els.year.textContent = new Date().getFullYear();
+if (els.year) els.year.textContent = new Date().getFullYear();
 
 let activeSpeciesId = null;
 let activeTags = new Set();
@@ -232,7 +233,7 @@ let activeTags = new Set();
 function allTags() {
   const s = new Set();
   SPECIES.forEach(sp => (sp.tags || []).forEach(t => s.add(t)));
-  return Array.from(s).sort((a,b)=>a.localeCompare(b));
+  return Array.from(s).sort((a, b) => a.localeCompare(b));
 }
 
 function renderTagBar() {
@@ -266,7 +267,6 @@ function renderTagBar() {
 
 function matchesFilters(sp) {
   const q = (els.searchInput.value || "").trim().toLowerCase();
-
   const hay = [
     sp.name, sp.scientific, sp.origin, sp.difficulty, sp.humidity, sp.temp,
     ...(sp.tags || []),
@@ -292,7 +292,6 @@ function setMainPhoto(sp, idx) {
   els.speciesImage.style.display = "block";
   els.photoCaption.textContent = p.caption || "";
 
-  // thumb highlight
   const thumbs = els.thumbBar.querySelectorAll("img");
   thumbs.forEach((img, i) => img.classList.toggle("active", i === idx));
 }
@@ -325,7 +324,7 @@ function renderQuickStats(sp) {
     ["Origin", sp.origin || "—"],
   ];
 
-  els.quickStats.innerHTML = items.map(([k,v]) => `
+  els.quickStats.innerHTML = items.map(([k, v]) => `
     <div class="stat">
       <div class="k">${k}</div>
       <div class="v">${v}</div>
@@ -350,9 +349,11 @@ function renderDoDont(sp) {
 function renderCareInfo(sp) {
   const stapleLines = (sp.staples || []).map(x => `• ${x}`).join("\n");
 
+  const tagLine = (sp.tags || []).join(", ");
+
   els.careInfo.textContent =
 `Scientific name: ${sp.scientific || "—"}
-Tags: ${(sp.tags || []).join(", ") || "—"}
+Taxonomy tags: ${tagLine || "—"}
 Last updated: ${sp.updated || "—"}
 
 Setup:
@@ -380,7 +381,6 @@ function selectSpecies(id) {
   setMainPhoto(sp, 0);
   renderThumbs(sp);
 
-  // highlight active button
   document.querySelectorAll(".specBtn").forEach(b => {
     b.classList.toggle("active", b.dataset.id === id);
   });
@@ -400,7 +400,6 @@ function renderButtons() {
     els.buttonContainer.appendChild(b);
   });
 
-  // If current selection is filtered out, clear selection
   if (activeSpeciesId && !visible.some(s => s.id === activeSpeciesId)) {
     activeSpeciesId = null;
     els.speciesName.textContent = "Select a species above";
@@ -412,7 +411,6 @@ function renderButtons() {
     els.doDont.style.display = "none";
   }
 
-  // If nothing selected yet, auto-select first visible
   if (!activeSpeciesId && visible.length > 0) {
     selectSpecies(visible[0].id);
   }
