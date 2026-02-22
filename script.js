@@ -194,7 +194,7 @@ const SPECIES = [
     name: "Temperate Springtails",
     scientific: "Collembola (commonly cultured)",
     difficulty: "Very easy",
-    tags: ["Group: Collembola"],
+    tags: ["Springtails"],
     origin: "Worldwide",
     humidity: "70–100% (culture-dependent)",
     temp: "60–80°F",
